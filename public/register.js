@@ -7,6 +7,7 @@ import {
   setToken,
 } from "./index.js";
 import { showLoginRegister } from "./loginRegister.js";
+import { showResidents } from "./residents.js";
 
 let registerDiv = null;
 let name = null;
@@ -26,12 +27,10 @@ export const handleRegister = () => {
   registerDiv.addEventListener("click", async (e) => {
     if (inputEnabled && e.target.nodeName === "BUTTON") {
       if (e.target === registerButton) {
-        console.log(name.value);
         if (password1.value != password2.value) {
           message.textContent = "The passwords entered do not match.";
         } else {
           enableInput(false);
-
           try {
             const response = await fetch("/api/v1/auth/register", {
               method: "POST",
@@ -55,6 +54,7 @@ export const handleRegister = () => {
               password1.value = "";
               password2.value = "";
 
+              showResidents();
             } else {
               message.textContent = data.msg;
             }

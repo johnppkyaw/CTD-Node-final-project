@@ -5,7 +5,7 @@ export const setDiv = (newDiv) => {
     if (activeDiv) {
       activeDiv.style.display = "none";
     }
-    newDiv.style.display = "block";
+    newDiv.style.display = "flex";
     activeDiv = newDiv;
   }
 };
@@ -26,20 +26,41 @@ export const setToken = (value) => {
   }
 };
 
+export let user = null;
+export const setUser = (username) => {
+  user = username;
+  if (user) {
+    localStorage.setItem("currentuser", username);
+  } else {
+    localStorage.removeItem("currentuser");
+  }
+}
+
 export let message = null;
 
+import { showResidents, handleResidents } from "./residents.js";
 import { showLoginRegister, handleLoginRegister } from "./loginRegister.js";
 import { handleLogin } from "./login.js";
+import { handleAddEdit } from "./addEdit.js";
 import { handleRegister } from "./register.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   token = localStorage.getItem("token");
   message = document.getElementById("message");
+  const rightHeaderDiv = document.getElementById("right-header");
   handleLoginRegister();
   handleLogin();
+  handleResidents();
   handleRegister();
+  handleAddEdit();
   if (token) {
-    alert("You are logged in!");
+    user = localStorage.getItem("currentuser");
+    if(user) {
+      rightHeaderDiv.style.display = "flex";
+      rightHeaderDiv.children[0].textContent = `Logged in as ${user}`;
+    }
+    showResidents();
+
   } else {
     showLoginRegister();
   }

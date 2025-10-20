@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(220, 215, 215);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+header {
+  width: 1283px;
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+}
+
+#right-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#logoff {
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+hr {
+  width: 100%;
+}
+
+#residents {
+  flex-direction: column;
+}
+
+#residents-list {
+  margin: 25px 0px;
+}
+
+#edit-resident, #register-div, #logon-div {
+  width: 40%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* #edit-resident div {
+  margin: 15px 0;
+} */
+
+table {
+  border-collapse: collapse;
+}
+
+/* padding: top, right, bottom, left */
+th, td {
+  padding: 20px 40px 20px 10px;
+}
+
+thead {
+  background-color: rgb(0, 14, 51);
+  color: white;
+  font-family: "Arial", sans-serif;
+  font-size: medium;
+  letter-spacing: 1px;
+}
+td {
+  font-size: 20px;
+}
+
+#residents-table-body tr:nth-child(even) {
+  background-color: rgb(172, 200, 250);
+}
+
+#actions-header {
+  text-align: center;
+}
+
+form {
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 50px;
+}
+
+input, select{
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display:inline-block;
+}
+
+button {
+  color: white;
+  border-style: none;
+  border-radius: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(50%);
+}
+
+#add-resident {
+  padding: 15px 15px;
+  font-size: 18px;
+}
+
+#logon, #register, #logon-button, #logon-cancel, #register-button, #register-cancel, #adding-resident, #edit-cancel {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+.edit-button, .delete-button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.filter-button {
+  padding: 5px 20px;
+  font-size: 18px;
+}
+
+
+.teal-button {
+  background-color: rgb(42, 192, 198);
+}
+
+.blue-button {
+  background-color: rgb(9, 129, 248);
+}
+
+.red-button {
+  background-color: rgb(223, 76, 76);
+}

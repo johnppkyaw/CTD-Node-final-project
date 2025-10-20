@@ -5,8 +5,11 @@ import {
   message,
   enableInput,
   setToken,
+  user,
+  setUser
 } from "./index.js";
 import { showLoginRegister } from "./loginRegister.js";
+import { showResidents } from "./residents.js";
 
 let loginDiv = null;
 let email = null;
@@ -18,7 +21,8 @@ export const handleLogin = () => {
   password = document.getElementById("password");
   const logonButton = document.getElementById("logon-button");
   const logonCancel = document.getElementById("logon-cancel");
-
+  const rightHeaderDiv = document.getElementById("right-header");
+  
   loginDiv.addEventListener("click", async (e) => {
     if (inputEnabled && e.target.nodeName === "BUTTON") {
       if (e.target === logonButton) {
@@ -40,15 +44,19 @@ export const handleLogin = () => {
           if (response.status === 200) {
             message.textContent = `Logon successful.  Welcome ${data.user.name}`;
             setToken(data.token);
+            setUser(data.user.name);
+
+            rightHeaderDiv.style.display = "flex";
+            rightHeaderDiv.children[0].textContent = `Logged in as ${user}`;
 
             email.value = "";
             password.value = "";
 
+            showResidents();
           } else {
             message.textContent = data.msg;
           }
         } catch (err) {
-          console.error(err);
           message.textContent = "A communications error occurred.";
         }
 

@@ -5,55 +5,145 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
   <title>Resident Tracker</title>
 </head>
 
 <body>
-  <h1>Resident Tracker</h1>
+  <header>
+    <h1>Resident Tracker</h1>
+    <div id="right-header" style="display: none;">
+        <span></span><button type="button" class="red-button" id="logoff" >Log Out</button>
+    </div>
+  </header>
   <hr />
   <p id="message"></p>
   <hr />
 
   <div id="logon-register" style="display:none;">
-    <button type="button" id="logon">logon</button> 
-    <button type="button" id="register">register</button> 
+    <button type="button" class="blue-button" id="logon">Log In</button> 
+    <button type="button" class="teal-button" id="register">Register</button> 
   </div>
 
   <div id="logon-div" style="display:none;">
     <form>
-      <div> <label for="email">email:</label> <input type="email" id="email" /> </div>
-      <div> <label for="password">password:</label> <input type="password" id="password" /> </div> <button type="button"
-        id="logon-button">logon</button> <button type="button" id="logon-cancel">cancel</button>
+      <div> 
+        <label for="email">Email:</label> 
+        <input type="email" id="email" /> 
+      </div>
+      <div> 
+        <label for="password">Password:</label> 
+        <input type="password" id="password" /> 
+      </div> 
+      <button type="button" class="blue-button" id="logon-button">Log In</button> 
+      <button type="button" class="red-button" id="logon-cancel">Cancel</button>
     </form>
   </div>
 
   <div id="register-div" style="display:none;">
     <form>
-      <div> <label for="name">name:</label> <input type="text" id="name" /> </div>
-      <div> <label for="email1">email:</label> <input type="email" id="email1" /> </div>
-      <div> <label for="password1">password:</label> <input type="password" id="password1" /> </div>
-      <div> <label for="password2">verify password:</label> <input type="password" id="password2" /> </div> <button
-        type="button" id="register-button">register</button> <button type="button" id="register-cancel">cancel</button>
+      <div> 
+        <label for="name">Name:</label>
+        <input type="text" id="name" /> 
+      </div>
+      <div> 
+        <label for="email1">Email:</label> 
+        <input type="email" id="email1" /> 
+      </div>
+      <div> 
+        <label for="password1">Password:</label> 
+        <input type="password" id="password1" /> 
+      </div>
+      <div> 
+        <label for="password2">Verify password:</label> 
+        <input type="password" id="password2" /> </div> 
+      <button type="button" class="blue-button" id="register-button">Register</button> 
+      <button type="button" class="red-button" id="register-cancel">Cancel</button>
     </form>
   </div>
 
   <div id="residents" style="display:none;">
     <p id="residents-message"></p>
-    <table id="residents-table">
-      <tr id="residents-table-header">
-        <th>Name</th>
-        <th>Date of Birth</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Status</th>
-        <th>Discharged?</th>
-        <th>Room No.</th>
-        <th colspan="2"></th>
-      </tr>
-    </table> <button type="button" id="add-resident">add resident</button> <button type="button" id="logoff">log off</button>
+    <div>
+      <button class="blue-button filter-button" id="active-residents-btn" disabled>Active Residents</button>
+      <button class="blue-button filter-button" id="passive-residents-btn">Discharged Residents</button>
+    </div>
+    <div id="residents-list">
+      <table id="residents-table">
+        <thead id="residents-table-header">
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Status</th>
+            <th>Hospice?</th>
+            <th>Room No.</th>
+            <th id="actions-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="residents-table-body">
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <button type="button" class="blue-button" id="add-resident" >+ Add A Resident</button> 
+      <!-- <button type="button" class="red-button" id="logoff">Log Out</button> -->
+    </div>
+  </div>
+
+  <div id="edit-resident" style="display:none;">
+    <form>
+      <div>
+        <label for="last-name">Last Name: </label> 
+        <input type="text" id="last-name" />
+      </div>
+      <div> 
+        <label for="first-name">First Name: </label> 
+        <input type="text" id="first-name" /> 
+      </div>
+      <div> 
+        <label for="middle-name">Middle Name: </label> 
+        <input type="text" id="middle-name" /> 
+      </div>
+      <div> 
+        <label for="gender">Gender: </label> 
+        <select id="gender" required>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+      </div>
+      <div> 
+        <label for="date-of-birth">Date of Birth: </label> 
+        <input type="date" id="date-of-birth" /> 
+      </div>
+      <div> 
+        <label for="status">Status: </label> 
+        <select id="status">
+          <option value="active" selected>Active</option>
+          <option value="discharged">Discharged</option>
+          <option value="hospitalized">Hospitalized</option>
+        </select>
+      </div>
+      <div> 
+        <label for="hospice">In Hospice?: </label> 
+        <select id="hospice">
+          <option value="true" selected>Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div> 
+        <label for="room-number">Room #: </label> 
+        <input id="room-number" type="number" min="1" max="100">
+      </div>
+      <button type="button" class="blue-button" id="adding-resident">Add</button> 
+      <button type="button" class="red-button" id="edit-cancel">Cancel</button>
+    </form>
   </div>
 
   <script src="./index.js" type="module"></script>
 </body>
 
 </html>
+  
