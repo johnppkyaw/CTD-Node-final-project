@@ -23,6 +23,7 @@ export const setToken = (value) => {
     localStorage.setItem("token", value);
   } else {
     localStorage.removeItem("token");
+    localStorage.removeItem("savedFilter");
   }
 };
 
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   handleAddEdit();
   showFilteredResidents();
   if (token) {
-    user = localStorage.getItem("currentTotalResults");
+    user = localStorage.getItem("currentuser");
     if(user) {
       rightHeaderDiv.style.display = "flex";
       rightHeaderDiv.children[0].textContent = `Logged in as ${user}`;

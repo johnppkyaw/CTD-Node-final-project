@@ -33,6 +33,9 @@ export const handleResidents = () => {
         setToken(null);
         setUser(null);
 
+        localStorage.removeItem("currentTotalResults");
+        localStorage.removeItem("savedFilter");
+
         message.textContent = "You have been logged off.";
 
         residentsTableBody.replaceChildren([]);

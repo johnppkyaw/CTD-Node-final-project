@@ -18,7 +18,6 @@ const getAllResidents = async(req, res) => {
   const totalResults = await Resident.countDocuments(queryObject);
 
   //pagination
-  console.log(req.query.page);
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 5;
   const skip = (page - 1) * limit;

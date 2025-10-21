@@ -19,7 +19,7 @@ export const paginate = () => {
     rightArrow.classList.add("filter-button");
     rightArrow.textContent = ">";
     rightArrow.addEventListener("click", (e) => {
-      if(currentPage <= totalPages) {
+      if(currentPage < totalPages) {
         currentPage++;
         showResidents(savedFilter, currentPage);
       }
@@ -32,6 +32,7 @@ export const paginate = () => {
       pageNumberDiv.classList.add("filter-button");
       pageNumberDiv.textContent = i;
       pageNumberDiv.addEventListener("click", (e)=> {
+        currentPage = i;
         showResidents(savedFilter, i);
       })
       paginateDiv.appendChild(pageNumberDiv);
