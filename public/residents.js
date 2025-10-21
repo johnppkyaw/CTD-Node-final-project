@@ -60,8 +60,17 @@ export const handleResidents = () => {
   });
 };
 
-export const showResidents = async (url) => {
-  const resultUrl = url || "/api/v1/residents";
+export const showResidents = async (url, page) => {
+
+  let resultUrl = "/api/v1/residents";
+
+  if(url !== "all" ) {
+    resultUrl = `/api/v1/residents?status=${url}`;
+  }
+
+  if(page) {
+    resultUrl += url !== "all" ? `&page=${page}` : `?page=${page}`;
+  }
   
   try {
     enableInput(false);
@@ -81,6 +90,9 @@ export const showResidents = async (url) => {
       if (data.count === 0) {
         residentsTableBody.replaceChildren(...children); // clear this for safety
       } else {
+        const totalResults = data.totalResults;
+        localStorage.setItem("currentTotalResults", totalResults);
+        
         for (let i = 0; i < data.residents.length; i++) {
           let rowEntry = document.createElement("tr");
 

@@ -39,28 +39,47 @@ export const setUser = (username) => {
 export let message = null;
 
 import { showResidents, handleResidents } from "./residents.js";
+import { showFilteredResidents } from "./filterResidents.js";
 import { showLoginRegister, handleLoginRegister } from "./loginRegister.js";
 import { handleLogin } from "./login.js";
 import { handleAddEdit } from "./addEdit.js";
 import { handleRegister } from "./register.js";
+import { paginate } from "./paginate.js";
+
+let activeResidentsBtn = null;
+let dischargedResidentsBtn = null;
+let allResidentsBtn = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   token = localStorage.getItem("token");
+
+  const savedFilter = localStorage.getItem("savedFilter") || "active";
+  const currentTotalResults = localStorage.getItem("currentTotalResults");
+  
   message = document.getElementById("message");
   const rightHeaderDiv = document.getElementById("right-header");
+
+  activeResidentsBtn = document.getElementById("active-residents-btn");
+  dischargedResidentsBtn = document.getElementById("discharged-residents-btn");
+  allResidentsBtn = document.getElementById("all-residents-btn");
+
   handleLoginRegister();
   handleLogin();
   handleResidents();
   handleRegister();
   handleAddEdit();
+  showFilteredResidents();
   if (token) {
-    user = localStorage.getItem("currentuser");
+    user = localStorage.getItem("currentTotalResults");
     if(user) {
       rightHeaderDiv.style.display = "flex";
       rightHeaderDiv.children[0].textContent = `Logged in as ${user}`;
     }
-    showResidents();
-
+    activeResidentsBtn.disabled = savedFilter === "active" ? true : false;
+    dischargedResidentsBtn.disabled = savedFilter === "discharged" ? true : false;
+    allResidentsBtn.disabled = savedFilter === "all" ? true : false;
+    paginate();
+    showResidents(savedFilter);
   } else {
     showLoginRegister();
   }

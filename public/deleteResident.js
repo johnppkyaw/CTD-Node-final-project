@@ -2,7 +2,7 @@ import { showResidents } from "./residents.js";
 import { enableInput, token, message } from "./index.js";
 
 export const deleteResident = async(id) => {
-  console.log("you are here in deleteResident!")
+  const savedFilter = localStorage.getItem("savedFilter");
   enableInput(false);
   const url = `/api/v1/residents/${id}`;
   const method = 'DELETE';
@@ -14,10 +14,9 @@ export const deleteResident = async(id) => {
         Authorization: `Bearer ${token}`,
       }
     });
-    console.log(response);
     if (response.status === 200) {
       message.textContent = "The resident entry was deleted successfully!";
-      showResidents();
+      showResidents(savedFilter);
     }
   } catch(err) {
     message.textContent = "A communication error occurred.";

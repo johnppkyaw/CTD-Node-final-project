@@ -15,6 +15,7 @@ let addingResident = null;
 let editCancel = null
 
 export const handleAddEdit = () => {
+  const savedFilter = localStorage.getItem("savedFilter");
   addEditDiv = document.getElementById("edit-resident");
   lastName = document.getElementById("last-name");
   firstName = document.getElementById("first-name");
@@ -92,7 +93,7 @@ export const handleAddEdit = () => {
             hospice.value = ""; 
             roomNumber.value = ""; 
 
-            showResidents();
+            showResidents(savedFilter);
           } else {
             message.textContent = data.msg;
           }
@@ -103,7 +104,7 @@ export const handleAddEdit = () => {
       } else if (e.target === editCancel) {
         message.textContent = "";
         previousRoomNumber = ""
-        showResidents();
+        showResidents(savedFilter);
       }
     }
   });
@@ -153,11 +154,11 @@ export const showAddEdit = async (residentId) => {
       } else {
         // might happen if the list has been updated since last display
         message.textContent = "The resident entry was not found";
-        showResidents();
+        showResidents("active");
       }
     } catch (err) {
       message.textContent = "A communications error has occurred.";
-      showResidents();
+      showResidents("active");
     }
 
     enableInput(true);

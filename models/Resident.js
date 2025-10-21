@@ -41,6 +41,14 @@ const ResidentSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'Please provide a user']
   }
-}, {timestamps: true})
+}, {timestamps: true});
+
+ResidentSchema.index(
+  { roomNumber: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { roomNumber: { $type: "number" } }
+  }
+);
 
 module.exports = mongoose.model('Resident', ResidentSchema);

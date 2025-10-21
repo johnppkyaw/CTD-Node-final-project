@@ -64,10 +64,12 @@
 
   <div id="residents" style="display:none;">
     <p id="residents-message"></p>
-    <div>
+    <div id="filter-status-div">
       <button class="blue-button filter-button" id="active-residents-btn" disabled>Active Residents</button>
-      <button class="blue-button filter-button" id="passive-residents-btn">Discharged Residents</button>
+      <button class="blue-button filter-button" id="discharged-residents-btn">Discharged Residents</button>
+      <button class="blue-button filter-button" id = "all-residents-btn">All Residents</button>
     </div>
+    <div id="pagination-div"></div>
     <div id="residents-list">
       <table id="residents-table">
         <thead id="residents-table-header">
@@ -89,7 +91,6 @@
     </div>
     <div>
       <button type="button" class="blue-button" id="add-resident" >+ Add A Resident</button> 
-      <!-- <button type="button" class="red-button" id="logoff">Log Out</button> -->
     </div>
   </div>
 

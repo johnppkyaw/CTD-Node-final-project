@@ -52,7 +52,7 @@ export const handleLogin = () => {
             email.value = "";
             password.value = "";
 
-            showResidents();
+            showResidents("active");
           } else {
             message.textContent = data.msg;
           }

@@ -4,21 +4,28 @@ const {BadRequestError, NotFoundError} = require('../errors');
 
 const getAllResidents = async(req, res) => {
 
-  let results = Resident.find({createdBy: req.user.userId}).sort('lastName');
-  // const residents = await Resident.find({createdBy: req.user.userId}).sort('lastName');
+  const { status } = req.query;
+  const queryObject = {}
+  queryObject.createdBy = req.user.userId;
+
+  if(status) {
+    queryObject.status = status;
+  } 
+
+  let results = Resident.find(queryObject).sort('lastName');
 
   // //gets total documents
-  const totalResults = await Resident.countDocuments({});
+  const totalResults = await Resident.countDocuments(queryObject);
 
   //pagination
+  console.log(req.query.page);
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
+  const limit = Number(req.query.limit) || 5;
   const skip = (page - 1) * limit;
 
   results = results.skip(skip).limit(limit);
 
   const residents = await results;
-  
 
   res.status(StatusCodes.OK).json({
     residents, 
@@ -62,7 +69,7 @@ const updateResident = async(req, res) => {
       throw new BadRequestError('Fields cannot be empty');
      };
   
-  const updatedResident = await Resident.findByIdAndUpdate(
+  const updatedResident = await Resident.findOneAndUpdate(
     { _id: residentId, createdBy: userId },
     req.body,
     { new: true, runValidators: true }
@@ -77,7 +84,7 @@ const updateResident = async(req, res) => {
 
 const deleteResident = async(req, res) => {
   const {user: {userId}, params: {id: residentId}} = req;
-  const removedResident = await Resident.findByIdAndDelete({
+  const removedResident = await Resident.findOneAndDelete({
     _id:residentId,
     createdBy: userId
   });
