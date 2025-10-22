@@ -79,8 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     activeResidentsBtn.disabled = savedFilter === "active" ? true : false;
     dischargedResidentsBtn.disabled = savedFilter === "discharged" ? true : false;
     allResidentsBtn.disabled = savedFilter === "all" ? true : false;
-    paginate();
-    showResidents(savedFilter);
+    showResidents(savedFilter).then(() => paginate());
   } else {
     showLoginRegister();
   }
