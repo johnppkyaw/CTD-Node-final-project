@@ -31,44 +31,18 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 const authRouter = require('./routes/auth');
 const residentsRouter = require('./routes/residents');
 
-//Testing for Rendered HTML
-//n Express, when a page is rendered, it should set the Content-Type response header to be text/html.  But it doesn't.  The second problem is that if Chai receives a response without the Content-Type header, it tries to parse it as JSON, and throws an error if that fails.
-// app.use((req, res, next) => {
-//   if (req.path == "/multiply") {
-//     res.set("Content-Type", "application/json");
-//   } else {
-//     res.set("Content-Type", "text/html");
-//   }
-//   next();
-// });
-
 app.use(express.static("public"));
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/residents', authenticateUser, residentsRouter);
 
-// app.get("/multiply", (req, res) => {
-//   const result = req.query.first * req.query.second;
-//   if (result.isNaN) {
-//     result = "NaN";
-//   } else if (result == null) {
-//     result = "null";
-//   }
-//   res.json({ result: result });
-// });
-
-
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-let mongoURL = process.env.MONGO_URI;
-if (process.env.NODE_ENV == "test") {
-  mongoURL = process.env.MONGO_URI_TEST;
-}
 const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    await connectDB(mongoURL);
+    await connectDB(process.env.MONGO_URI);
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
@@ -78,5 +52,3 @@ const start = async () => {
 };
 
 start();
-
-// module.exports = { app };

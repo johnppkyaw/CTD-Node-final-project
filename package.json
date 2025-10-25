@@ -4,8 +4,7 @@
   "description": "CTD Node final project",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "NODE_ENV=test mocha tests/*.js --timeout 5000 --exit"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -25,13 +24,5 @@
     "rate-limiter": "^0.2.0",
     "swagger-ui-express": "^5.0.1",
     "xss-clean": "^0.1.4"
-  },
-  "devDependencies": {
-    "@faker-js/faker": "^9.9.0",
-    "chai": "^5.3.3",
-    "chai-http": "^5.1.2",
-    "factory-bot": "^6.3.1",
-    "mocha": "^11.7.4",
-    "puppeteer": "^24.26.1"
   }
 }
