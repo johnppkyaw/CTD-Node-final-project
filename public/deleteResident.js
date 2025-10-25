@@ -1,5 +1,6 @@
 import { showResidents } from "./residents.js";
 import { enableInput, token, message } from "./index.js";
+import { paginate } from "./paginate.js";
 
 export const deleteResident = async(id) => {
   const savedFilter = localStorage.getItem("savedFilter");
@@ -16,7 +17,7 @@ export const deleteResident = async(id) => {
     });
     if (response.status === 200) {
       message.textContent = "The resident entry was deleted successfully!";
-      showResidents(savedFilter);
+      showResidents(savedFilter).then(()=>paginate());
     }
   } catch(err) {
     message.textContent = "A communication error occurred.";

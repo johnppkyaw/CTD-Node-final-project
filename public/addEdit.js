@@ -1,6 +1,7 @@
 import { enableInput, inputEnabled, message, setDiv, token } from "./index.js";
 import { showResidents } from "./residents.js";
 import { dateConverter, yearMonthDayConverter } from "./dateConverter.js";
+import { paginate } from "./paginate.js";
 
 let addEditDiv = null;
 let lastName = null;
@@ -93,7 +94,7 @@ export const handleAddEdit = () => {
             hospice.value = ""; 
             roomNumber.value = ""; 
 
-            showResidents(savedFilter);
+            showResidents(savedFilter).then(()=>paginate());
           } else {
             message.textContent = data.msg;
           }
@@ -103,15 +104,17 @@ export const handleAddEdit = () => {
         enableInput(true);
       } else if (e.target === editCancel) {
         message.textContent = "";
-        previousRoomNumber = ""
-        showResidents(savedFilter);
+        previousRoomNumber = "";
+        showResidents(savedFilter).then(()=>paginate());
       }
     }
   });
 };
 
 export const showAddEdit = async (residentId) => {
-  if (!residentId) {
+    const savedFilter = localStorage.getItem("savedFilter");
+    console.log(savedFilter);
+    if (!residentId) {
     firstName.value = ""; 
     middleName.value = ""; 
     lastName.value = ""; 
@@ -154,11 +157,12 @@ export const showAddEdit = async (residentId) => {
       } else {
         // might happen if the list has been updated since last display
         message.textContent = "The resident entry was not found";
-        showResidents("active");
+        
+        showResidents(savedFilter).then(()=>paginate());
       }
     } catch (err) {
       message.textContent = "A communications error has occurred.";
-      showResidents("active");
+      showResidents(savedFilter).then(()=>paginate());
     }
 
     enableInput(true);

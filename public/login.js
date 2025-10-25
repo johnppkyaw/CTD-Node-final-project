@@ -10,6 +10,7 @@ import {
 } from "./index.js";
 import { showLoginRegister } from "./loginRegister.js";
 import { showResidents } from "./residents.js";
+import { paginate } from "./paginate.js";
 
 let loginDiv = null;
 let email = null;
@@ -52,7 +53,7 @@ export const handleLogin = () => {
             email.value = "";
             password.value = "";
 
-            showResidents("active");
+            showResidents("active").then(() => paginate());
           } else {
             message.textContent = data.msg;
           }
